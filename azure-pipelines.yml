@@ -9,6 +9,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+  solutionName: 'employee.registration.api'
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -36,3 +37,8 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    TargetPath: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '$(solutionName)'
